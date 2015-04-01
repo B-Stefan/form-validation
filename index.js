@@ -1,1 +1,1 @@
-module.exports = require('./lib/Validation');
+module.exports = require('./build/Validation');

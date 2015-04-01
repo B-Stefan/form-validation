@@ -26,4 +26,4 @@ spm_modules
 dist
 assets/**/*.css
 examples/**/*.css
-build/
+build/examples/
