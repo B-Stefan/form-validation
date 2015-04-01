@@ -1,58 +1,85 @@
-var PRS$0 = (function(o,t){o["__proto__"]={"a":t};return o["a"]===t})({},{});var DP$0 = Object.defineProperty;var GOPD$0 = Object.getOwnPropertyDescriptor;var MIXIN$0 = function(t,s){for(var p in s){if(s.hasOwnProperty(p)){DP$0(t,p,GOPD$0(s,p));}}return t};var SP$0 = Object.setPrototypeOf||function(o,p){if(PRS$0){o["__proto__"]=p;}else {DP$0(o,"__proto__",{"value":p,"configurable":true,"enumerable":false,"writable":true});}return o};var OC$0 = Object.create;/** @jsx React.DOM */
+"use strict";
 
-var React = require('react');
-var createChainedFunction = require('rc-util').createChainedFunction;
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var Validator = (function(super$0){"use strict";super$0=React.Component;if(!PRS$0)MIXIN$0(Validator, super$0);var proto$0={};
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+/** @jsx React.DOM */
+
+var React = require("react");
+var createChainedFunction = require("rc-util").createChainedFunction;
+
+var Validator = (function (_React$Component) {
   function Validator(props) {
-    super$0.call(this, props);
+    _classCallCheck(this, Validator);
+
+    _get(Object.getPrototypeOf(Validator.prototype), "constructor", this).call(this, props);
     this.reset();
     this.handleChange = this.handleChange.bind(this);
-  }if(super$0!==null)SP$0(Validator,super$0);Validator.prototype = OC$0(super$0!==null?super$0.prototype:null,{"constructor":{"value":Validator,"configurable":true,"writable":true}});DP$0(Validator,"prototype",{"configurable":false,"enumerable":false,"writable":false});
+  }
 
-  proto$0.reset = function() {
-    this.errors = undefined;
-    this.dirty = true;
-    this.isValidating = false;
-    // in case component is unmount and remount
-    this.actionId = -1;
-  };
+  _inherits(Validator, _React$Component);
 
-  proto$0.handleChange = function(e) {
-    // support custom element
-    var value = e.target ? e.target.value : e;
-    this.props.handleInputChange(this, value);
-  };
+  _createClass(Validator, {
+    reset: {
+      value: function reset() {
+        this.errors = undefined;
+        this.dirty = true;
+        this.isValidating = false;
+        // in case component is unmount and remount
+        this.actionId = -1;
+      }
+    },
+    handleChange: {
+      value: function handleChange(e) {
+        // support custom element
+        var value = e.target ? e.target.value : e;
+        this.props.handleInputChange(this, value);
+      }
+    },
+    getName: {
+      value: function getName() {
+        return React.Children.only(this.props.children).props.name;
+      }
+    },
+    getValue: {
+      value: function getValue() {
+        return React.Children.only(this.props.children).props.value;
+      }
+    },
+    render: {
+      value: function render() {
+        var child = React.Children.only(this.props.children);
+        return React.cloneElement(child, {
+          onChange: createChainedFunction(child.props.onChange, this.handleChange)
+        });
+      }
+    },
+    componentDidMount: {
+      value: function componentDidMount() {
+        this.props.attachValidator(this);
+        //console.log(this.getName()+' mount');
+      }
+    },
+    componentDidUpdate: {
+      value: function componentDidUpdate() {
+        this.props.attachValidator(this);
+      }
+    },
+    componentWillUnmount: {
+      value: function componentWillUnmount() {
+        this.props.detachValidator(this);
+        //console.log(this.getName()+' unmount');
+      }
+    }
+  });
 
-  proto$0.getName = function() {
-    return React.Children.only(this.props.children).props.name;
-  };
-
-  proto$0.getValue = function() {
-    return React.Children.only(this.props.children).props.value;
-  };
-
-  proto$0.render = function() {
-    var child = React.Children.only(this.props.children);
-    return React.cloneElement(child, {
-      onChange: createChainedFunction(child.props.onChange, this.handleChange)
-    });
-  };
-
-  proto$0.componentDidMount = function() {
-    this.props.attachValidator(this);
-    //console.log(this.getName()+' mount');
-  };
-
-  proto$0.componentDidUpdate = function() {
-    this.props.attachValidator(this);
-  };
-
-  proto$0.componentWillUnmount = function() {
-    this.props.detachValidator(this);
-    //console.log(this.getName()+' unmount');
-  };
-MIXIN$0(Validator.prototype,proto$0);proto$0=void 0;return Validator;})();
+  return Validator;
+})(React.Component);
 
 Validator.propTypes = {
   attachValidator: React.PropTypes.func,

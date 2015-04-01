@@ -1,8 +1,10 @@
+"use strict";
+
 function merge() {
   var ret = {};
   var args = [].slice.call(arguments, 0);
-  args.forEach(function(a) {
-    Object.keys(a).forEach(function(k) {
+  args.forEach(function (a) {
+    Object.keys(a).forEach(function (k) {
       ret[k] = a[k];
     });
   });
@@ -10,7 +12,7 @@ function merge() {
 }
 
 var FieldMixin = {
-  setField: function(field, e) {
+  setField: function setField(field, e) {
     var v = e;
     if (e && e.target) {
       v = e.target.value;
@@ -22,7 +24,7 @@ var FieldMixin = {
     });
   },
 
-  handleValidate: function(status, formData) {
+  handleValidate: function handleValidate(status, formData) {
     this.setState({
       status: merge(this.state.status, status),
       formData: merge(this.state.formData, formData)

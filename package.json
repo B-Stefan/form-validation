@@ -48,7 +48,7 @@
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "^2.1.1",
     "gulp": "^3.8.11",
-    "gulp-es6-transpiler": "^1.0.1",
+    "gulp-babel": "^4.0.1",
     "gulp-reactify": "^2.0.0",
     "object-assign": "~2.0.0",
     "precommit-hook": "^1.0.7",
